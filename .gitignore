@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript compiled files
+dist/
+out/
+*.js
+*.js.map
+*.d.ts
+
+# Jest cache & coverage reports
+coverage/
+jest-cache/
+jest-output.log
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Logs
+logs/
+*.log
