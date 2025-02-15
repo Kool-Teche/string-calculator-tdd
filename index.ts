@@ -1,17 +1,39 @@
 export class StringCalculator {
   add(numbers: string): number {
-    if (!numbers) return 0;
+    if (!numbers.trim()) return 0; // Handle empty string safely
 
+    const { delimiter, sanitizedNumbers } = this.extractDelimiter(numbers);
+    const numArray = this.parseNumbers(sanitizedNumbers, delimiter);
+    return numArray.reduce((sum, num) => sum + num, 0);
+  }
+
+  // Extracts custom delimiters if present, else defaults to comma/newline.
+  private extractDelimiter(numbers: string): {
+    delimiter: RegExp;
+    sanitizedNumbers: string;
+  } {
     let delimiter = /,|\n/;
-    if (numbers.startsWith("//")) {
-      const parts = numbers.split("\n");
-      delimiter = new RegExp(parts[0].slice(2)); // Extract custom delimiter
-      numbers = parts[1];
+    let sanitizedNumbers = numbers.trim();
+
+    if (sanitizedNumbers.startsWith("//")) {
+      const parts = sanitizedNumbers.split("\n", 2);
+      if (parts.length < 2)
+        throw new Error("Invalid input format for custom delimiters");
+
+      const delimiterPart = parts[0].slice(2);
+      delimiter = new RegExp(delimiterPart);
+      sanitizedNumbers = parts[1];
     }
 
-    return numbers
-      .split(delimiter)
-      .map(Number)
-      .reduce((sum, num) => sum + num, 0);
+    return { delimiter, sanitizedNumbers };
+  }
+
+  // Parses numbers from a string, using the provided delimiter.
+  private parseNumbers(numbers: string, delimiter: RegExp): number[] {
+    return numbers.split(delimiter).map((num) => {
+      const parsedNum = Number(num.trim());
+      if (isNaN(parsedNum)) throw new Error(`Invalid number found: '${num}'`);
+      return parsedNum;
+    });
   }
 }
