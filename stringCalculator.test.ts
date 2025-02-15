@@ -24,3 +24,8 @@ test("handles new lines between numbers", () => {
   const calc = new StringCalculator();
   expect(calc.add("1\n2,3")).toBe(6);
 });
+
+test("supports custom delimiters", () => {
+  const calc = new StringCalculator();
+  expect(calc.add("//;\n1;2")).toBe(3);
+});
