@@ -19,3 +19,8 @@ test("returns sum of multiple numbers", () => {
   const calc = new StringCalculator();
   expect(calc.add("1,2,3,4,5")).toBe(15);
 });
+
+test("handles new lines between numbers", () => {
+  const calc = new StringCalculator();
+  expect(calc.add("1\n2,3")).toBe(6);
+});
