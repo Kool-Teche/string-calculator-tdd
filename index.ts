@@ -4,9 +4,9 @@ export class StringCalculator {
 
     const { delimiter, sanitizedNumbers } = this.extractDelimiter(numbers);
     const numArray = this.parseNumbers(sanitizedNumbers, delimiter);
-    const negatives = numArray.filter((n) => n < 0);
-    if (negatives.length)
-      throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+
+    this.validateNumbers(numArray);
+
     return numArray.reduce((sum, num) => sum + num, 0);
   }
 
@@ -38,5 +38,14 @@ export class StringCalculator {
       if (isNaN(parsedNum)) throw new Error(`Invalid number found: '${num}'`);
       return parsedNum;
     });
+  }
+
+  // Validates numbers, ensuring no negatives exist.
+  // Throws an error if any negatives are found.
+  private validateNumbers(numArray: number[]): void {
+    const negatives = numArray.filter((n) => n < 0);
+    if (negatives.length) {
+      throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+    }
   }
 }
