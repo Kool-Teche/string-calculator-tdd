@@ -17,7 +17,7 @@ npm -v
 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/string-calculator-tdd.git
+git clone https://github.com/Kool-Teche/string-calculator-tdd.git
 cd string-calculator-tdd
 ```
 
