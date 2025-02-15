@@ -29,3 +29,8 @@ test("supports custom delimiters", () => {
   const calc = new StringCalculator();
   expect(calc.add("//;\n1;2")).toBe(3);
 });
+
+test("throw an error for negative numbers", () => {
+  const calc = new StringCalculator();
+  expect(() => calc.add("1,-2,3,-4")).toThrow("Negatives not allowed: -2, -4");
+});
