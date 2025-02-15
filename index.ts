@@ -4,6 +4,9 @@ export class StringCalculator {
 
     const { delimiter, sanitizedNumbers } = this.extractDelimiter(numbers);
     const numArray = this.parseNumbers(sanitizedNumbers, delimiter);
+    const negatives = numArray.filter((n) => n < 0);
+    if (negatives.length)
+      throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
     return numArray.reduce((sum, num) => sum + num, 0);
   }
 
